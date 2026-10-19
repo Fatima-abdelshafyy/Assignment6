@@ -6,7 +6,6 @@ import { Log } from "../DB/models/logs.model.js";
 
 const router = Router();
 
-// POST /collection/books — explicitly create books with title validation.
 router.post("/books", async (req, res, next) => {
   try {
     const db = mongoose.connection.db;
@@ -40,7 +39,6 @@ router.post("/books", async (req, res, next) => {
   }
 });
 
-// POST /collection/authors — inserting data creates this collection implicitly.
 router.post("/authors", async (req, res, next) => {
   try {
     const authors = Array.isArray(req.body) ? req.body : [req.body];
@@ -55,7 +53,6 @@ router.post("/authors", async (req, res, next) => {
   }
 });
 
-// POST /collection/logs/capped — create a capped collection with a 1 MB size limit.
 router.post("/logs/capped", async (req, res, next) => {
   try {
     const db = mongoose.connection.db;
@@ -78,7 +75,6 @@ router.post("/logs/capped", async (req, res, next) => {
   }
 });
 
-// POST /collection/books/index — create an ascending index on title.
 router.post("/books/index", async (req, res, next) => {
   try {
     const indexName = await mongoose.connection.db.collection("books").createIndex({ title: 1 });

@@ -5,7 +5,6 @@ import { Log } from "../DB/models/logs.model.js";
 
 const router = Router();
 
-// POST /books — insert one book.
 router.post("/", async (req, res, next) => {
   try {
     const { title, author, year, genres = [] } = req.body;
@@ -23,7 +22,6 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-// POST /books/batch — insert at least three books.
 router.post("/batch", async (req, res, next) => {
   try {
     const books = req.body.books ?? req.body;
@@ -38,7 +36,6 @@ router.post("/batch", async (req, res, next) => {
   }
 });
 
-// PATCH /books/Future — update the year of Future to 2022.
 router.patch("/:title", async (req, res, next) => {
   try {
     const book = await Book.findOneAndUpdate(
@@ -53,7 +50,6 @@ router.patch("/:title", async (req, res, next) => {
   }
 });
 
-// GET /books/title?title=Brave%20New%20World
 router.get("/title", async (req, res, next) => {
   try {
     if (!req.query.title) return res.status(400).json({ message: "Provide the title query parameter." });
@@ -64,7 +60,6 @@ router.get("/title", async (req, res, next) => {
   }
 });
 
-// GET /books/year?from=1990&to=2010
 router.get("/year", async (req, res, next) => {
   try {
     const from = Number(req.query.from);
@@ -79,7 +74,6 @@ router.get("/year", async (req, res, next) => {
   }
 });
 
-// GET /books/genre?genre=Science%20Fiction
 router.get("/genre", async (req, res, next) => {
   try {
     if (!req.query.genre) return res.status(400).json({ message: "Provide the genre query parameter." });
@@ -90,7 +84,6 @@ router.get("/genre", async (req, res, next) => {
   }
 });
 
-// GET /books/skip-limit — skip two, return three, sort year descending.
 router.get("/skip-limit", async (req, res, next) => {
   try {
     const books = await Book.find().sort({ year: -1 }).skip(2).limit(3);
@@ -100,7 +93,6 @@ router.get("/skip-limit", async (req, res, next) => {
   }
 });
 
-// GET /books/year-integer — match BSON integer years.
 router.get("/year-integer", async (req, res, next) => {
   try {
     const books = await mongoose.connection.db.collection("books")
@@ -111,7 +103,6 @@ router.get("/year-integer", async (req, res, next) => {
   }
 });
 
-// GET /books/exclude-genres — exclude books containing either genre.
 router.get("/exclude-genres", async (req, res, next) => {
   try {
     const books = await Book.find({ genres: { $nin: ["Horror", "Science Fiction"] } });
@@ -121,7 +112,6 @@ router.get("/exclude-genres", async (req, res, next) => {
   }
 });
 
-// DELETE /books/before-year?year=2000
 router.delete("/before-year", async (req, res, next) => {
   try {
     const year = Number(req.query.year ?? 2000);
