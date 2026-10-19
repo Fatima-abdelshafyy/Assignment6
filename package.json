@@ -1,0 +1,16 @@
+{
+  "name": "assignment-6",
+  "version": "1.0.0",
+  "description": "Assignment 6 - Express.js, MongoDB, and MongoDB Shell",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.6.1",
+    "express": "^4.22.3",
+    "mongoose": "^8.24.5"
+  }
+}
